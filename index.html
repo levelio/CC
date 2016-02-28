@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+
+</head>
+<body>
+
+
+<script src="dist/cc.js"></script>
+
+<script>
+    var Person = CC.extend({
+        _init: function (name, age) {
+            this.name = name;
+            this.age = age;
+        },
+        _proto: {
+            getName: function () {
+                return this.name;
+            },
+            getAge: function () {
+                return this.age;
+            }
+        },
+        _static: {
+            getConstructorName: function () {
+                return "Person";
+            }
+        }
+    });
+
+    var SuperMan = Person.extend({
+        _init: function (name, age, flyable) {
+            this.$base("_init", name, age);
+            this.flyable = flyable;
+        },
+        _proto: {
+            canFly: function () {
+                return this.flyable ? "我会飞" : "我不会飞";
+            }
+        },
+        _static: {
+            getConstructorName: function () {
+                return "SuperMan";
+            }
+        }
+    });
+
+
+    var p = new Person("赵日天", 18);
+    p.getName();    //=> 赵日天
+    p.getAge();     //=> 18
+    Person.getConstructorName();    //=> Person
+
+    var sp = new SuperMan("克拉克", 25, true);
+    sp.getName();   //=> 克拉克
+    sp.getAge();     //=> 25
+    sp.canFly();     //=> 我会飞
+    SuperMan.getConstructorName();  //=> SuperMan
+
+
+
+</script>
+
+</body>
+</html>
